@@ -52,3 +52,4 @@ android/key.properties
 *.jks
 CLAUDE.md
 .claude/
+android/.kotlin/
