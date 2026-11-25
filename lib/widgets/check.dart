@@ -65,6 +65,7 @@ class _CheckOrbState extends State<CheckOrb> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final burst = widget.size * 2.4;
     return Semantics(
+      container: true,
       button: true,
       checked: widget.done,
       label: widget.label,

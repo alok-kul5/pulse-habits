@@ -72,7 +72,13 @@ class TrainScreen extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Expanded(child: Text('Train', style: Txt.display(46))),
+                  Expanded(
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerLeft,
+                      child: Text('Train', style: Txt.display(46)),
+                    ),
+                  ),
                   GlowButton(label: 'Log workout', icon: Icons.add_rounded, expand: false, onTap: () => log(context)),
                 ],
               ),

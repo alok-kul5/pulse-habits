@@ -54,7 +54,7 @@ class _PulseAppState extends State<PulseApp> with WidgetsBindingObserver {
   Future<void> _refreshSteps() async {
     if (await _phone.refreshHealth() == HealthStatus.granted) {
       final steps = await _phone.health.steps(182);
-      if (steps.isNotEmpty) _t.setHealthSteps(steps);
+      if (steps.values.any((v) => v > 0)) _t.setHealthSteps(steps);
     }
   }
 

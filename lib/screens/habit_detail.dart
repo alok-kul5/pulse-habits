@@ -225,19 +225,23 @@ class _Stat extends StatelessWidget {
       children: [
         Text(label.toUpperCase(), style: Txt.label(10, color: big ? Palette.ink : Palette.ink3)),
         const SizedBox(height: 6),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            CountUp(value, style: Txt.display(30)),
-            const SizedBox(width: 3),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 4),
-              child: Text(
-                unit,
-                style: Txt.text(12, weight: FontWeight.w700, color: Palette.ink2),
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          alignment: Alignment.centerLeft,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              CountUp(value, style: Txt.display(30)),
+              const SizedBox(width: 3),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Text(
+                  unit,
+                  style: Txt.text(12, weight: FontWeight.w700, color: Palette.ink2),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     ),

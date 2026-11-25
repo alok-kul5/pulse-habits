@@ -38,7 +38,13 @@ void main() {
   testWidgets('write icons', (tester) async {
     Txt.useGoogleFonts = false;
     await tester.runAsync(() async {
-      Future<void> write(String path, int px, {double mark = .78, bool rounded = false, bool transparent = false}) async {
+      Future<void> write(
+        String path,
+        int px, {
+        double mark = .78,
+        bool rounded = false,
+        bool transparent = false,
+      }) async {
         File(path).writeAsBytesSync(await _icon(px, mark: mark, rounded: rounded, transparent: transparent));
       }
 

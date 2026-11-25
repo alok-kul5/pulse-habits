@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'dart:convert';
 
 import 'package:material_ui/material_ui.dart';
@@ -97,7 +99,7 @@ class WidgetPreview extends StatelessWidget {
               flex: 8,
               child: LayoutBuilder(
                 builder: (context, box) {
-                  final cell = (box.maxWidth - 6 * 3) / 7;
+                  final cell = math.min((box.maxWidth - 6 * 3) / 7, (box.maxHeight - 6 * 3) / 7);
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [

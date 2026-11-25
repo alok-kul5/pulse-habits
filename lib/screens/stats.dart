@@ -67,7 +67,13 @@ class _StatsScreenState extends State<StatsScreen> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Expanded(child: Text('Stats', style: Txt.display(46))),
+              Expanded(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.centerLeft,
+                  child: Text('Stats', style: Txt.display(46)),
+                ),
+              ),
               SizedBox(
                 width: 168,
                 child: PillSegments<Range>(

@@ -41,6 +41,7 @@ class _PressableState extends State<Pressable> {
   Widget build(BuildContext context) {
     final enabled = widget.onTap != null;
     return Semantics(
+      container: true,
       button: true,
       enabled: enabled,
       label: widget.semantics,
@@ -240,9 +241,19 @@ class Eyebrow extends StatelessWidget {
   Widget build(BuildContext context) => Row(
     children: [
       Expanded(
-        child: Text(text.toUpperCase(), style: Txt.label(11, color: color)),
+        flex: 3,
+        child: Text(
+          text.toUpperCase(),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: Txt.label(11, color: color),
+        ),
       ),
-      ?trailing,
+      if (trailing != null)
+        Flexible(
+          flex: 4,
+          child: Align(alignment: Alignment.centerRight, child: trailing),
+        ),
     ],
   );
 }
@@ -266,7 +277,14 @@ class PhoneOnlyTag extends StatelessWidget {
       children: [
         const Icon(Icons.smartphone_rounded, size: 12, color: Palette.gold),
         const SizedBox(width: 4),
-        Text(text, style: Txt.label(9.5, color: Palette.gold)),
+        Flexible(
+          child: Text(
+            text,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Txt.label(9.5, color: Palette.gold),
+          ),
+        ),
       ],
     ),
   );

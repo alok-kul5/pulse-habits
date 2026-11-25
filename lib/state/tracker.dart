@@ -69,7 +69,12 @@ class Tracker extends ChangeNotifier {
     return workouts.where((w) => w.day >= from && w.day <= today).length;
   }
 
-  List<Workout> get recentWorkouts => [...workouts]..sort((a, b) => b.day.compareTo(a.day));
+  /// Newest first; on the same day, the one logged last comes first.
+  List<Workout> get recentWorkouts {
+    final indexed = workouts.indexed.toList()
+      ..sort((a, b) => b.$2.day != a.$2.day ? b.$2.day.compareTo(a.$2.day) : b.$1.compareTo(a.$1));
+    return [for (final (_, w) in indexed) w];
+  }
 
   Habit? habit(String id) {
     for (final h in habits) {

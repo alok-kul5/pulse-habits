@@ -122,7 +122,10 @@ class YouScreen extends StatelessWidget {
         const SizedBox(height: 24),
         Reveal(
           delay: next(),
-          child: Eyebrow('Reminders', trailing: Reminders.platformSupported ? null : const PhoneOnlyTag()),
+          child: Eyebrow(
+            'Reminders',
+            trailing: Reminders.platformSupported ? const _NotifySwitch() : const PhoneOnlyTag(),
+          ),
         ),
         const SizedBox(height: 10),
         for (final h in t.habits)
@@ -378,4 +381,37 @@ class _Stepper extends StatelessWidget {
       ],
     ),
   );
+}
+
+/// Asks for the notification permission when reminders exist but Android
+/// hasn't been allowed to show them yet.
+class _NotifySwitch extends StatefulWidget {
+  const _NotifySwitch();
+
+  @override
+  State<_NotifySwitch> createState() => _NotifySwitchState();
+}
+
+class _NotifySwitchState extends State<_NotifySwitch> {
+  bool? _on;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    PhoneScope.of(context).reminders.enabled().then((v) {
+      if (mounted) setState(() => _on = v);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_on != false) return const SizedBox.shrink();
+    return GestureDetector(
+      onTap: () async {
+        final v = await PhoneScope.of(context).reminders.requestPermission();
+        if (mounted) setState(() => _on = v);
+      },
+      child: Text('TURN ON NOTIFICATIONS', style: Txt.label(10.5, color: Palette.ember)),
+    );
+  }
 }

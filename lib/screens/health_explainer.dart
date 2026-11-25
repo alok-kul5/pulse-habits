@@ -30,15 +30,22 @@ class _HealthExplainerState extends State<HealthExplainer> {
     setState(() => _busy = true);
     final ok = status == HealthStatus.granted || await phone.health.request();
     await phone.refreshHealth();
+    var found = false;
     if (ok) {
       final steps = await phone.health.steps(182);
-      if (steps.isNotEmpty) tracker.setHealthSteps(steps);
+      found = steps.values.any((v) => v > 0);
+      if (found) tracker.setHealthSteps(steps);
     }
     if (!mounted) return;
     setState(() => _busy = false);
     if (ok) {
       Navigator.of(context).pop();
-      toast(context, 'Steps now come from Health Connect');
+      toast(
+        context,
+        found
+            ? 'Steps now come from Health Connect'
+            : 'Connected. No steps recorded yet, so sample steps stay until there are.',
+      );
     } else {
       toast(context, 'No steps access. You can allow it later in Health Connect.');
     }

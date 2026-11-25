@@ -152,7 +152,7 @@ class _Tab extends StatelessWidget {
         onTap: onTap,
         child: AnimatedContainer(
           duration: Motion.of(context, Motion.slow),
-          curve: Motion.spring,
+          curve: Motion.out, // gradients must not overshoot
           margin: const EdgeInsets.symmetric(horizontal: 2),
           decoration: BoxDecoration(
             gradient: active ? Palette.brand : null,
@@ -168,22 +168,24 @@ class _Tab extends StatelessWidget {
                 curve: Motion.spring,
                 child: Icon(icon, size: 22, color: active ? Colors.white : Palette.ink3),
               ),
-              ClipRect(
-                child: AnimatedSize(
-                  duration: Motion.of(context, Motion.slow),
-                  curve: Motion.out,
-                  child: active
-                      ? Padding(
-                          padding: const EdgeInsets.only(left: 7),
-                          child: Text(
-                            label,
-                            maxLines: 1,
-                            overflow: TextOverflow.fade,
-                            softWrap: false,
-                            style: Txt.text(13.5, weight: FontWeight.w800, color: Colors.white),
-                          ),
-                        )
-                      : const SizedBox.shrink(),
+              Flexible(
+                child: ClipRect(
+                  child: AnimatedSize(
+                    duration: Motion.of(context, Motion.slow),
+                    curve: Motion.out,
+                    child: active
+                        ? Padding(
+                            padding: const EdgeInsets.only(left: 7),
+                            child: Text(
+                              label,
+                              maxLines: 1,
+                              overflow: TextOverflow.fade,
+                              softWrap: false,
+                              style: Txt.text(13.5, weight: FontWeight.w800, color: Colors.white),
+                            ),
+                          )
+                        : const SizedBox.shrink(),
+                  ),
                 ),
               ),
             ],

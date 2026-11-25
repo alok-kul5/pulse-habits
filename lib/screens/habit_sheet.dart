@@ -132,7 +132,7 @@ class _HabitSheetState extends State<HabitSheet> {
                   semantics: 'Colour ${i + 1}',
                   child: AnimatedContainer(
                     duration: Motion.of(context, Motion.base),
-                    curve: Motion.spring,
+                    curve: Motion.out,
                     width: i == _hue ? 36 : 30,
                     height: i == _hue ? 36 : 30,
                     decoration: BoxDecoration(

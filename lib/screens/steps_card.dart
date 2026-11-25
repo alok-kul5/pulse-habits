@@ -32,23 +32,34 @@ class StepsCard extends StatelessWidget {
                 trailing: live
                     ? const _Source(text: 'HEALTH CONNECT', color: Palette.volt)
                     : (status == HealthStatus.unsupported
-                          ? const PhoneOnlyTag(text: 'SAMPLE · HEALTH CONNECT ON PHONE')
+                          ? const PhoneOnlyTag(text: 'SAMPLE · REAL ON PHONE')
                           : const _Source(text: 'SAMPLE', color: Palette.ink3)),
               ),
               const SizedBox(height: 10),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  CountUp(steps, style: Txt.display(40), format: (v) => grouped(v)),
-                  const SizedBox(width: 6),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 6),
-                    child: Text(
-                      '/ ${grouped(t.stepGoal)}',
-                      style: Txt.text(14, weight: FontWeight.w700, color: Palette.ink3),
+                  Expanded(
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.bottomLeft,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          CountUp(steps, style: Txt.display(40), format: (v) => grouped(v)),
+                          const SizedBox(width: 6),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 6),
+                            child: Text(
+                              '/ ${grouped(t.stepGoal)}',
+                              style: Txt.text(14, weight: FontWeight.w700, color: Palette.ink3),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  const Spacer(),
+                  const SizedBox(width: 8),
                   _Spark(values: week, goal: t.stepGoal),
                 ],
               ),
