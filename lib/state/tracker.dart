@@ -59,6 +59,11 @@ class Tracker extends ChangeNotifier {
 
   double? dayScore(int day) => Stats.dayScore(habits, done, day);
 
+  /// Completion rate for this week so far.
+  double? get weekRate => Stats.completionRate(habits, done, Days.weekStart(today), today);
+
+  int get stepsToday => steps[today] ?? 0;
+
   int get sessionsThisWeek {
     final from = Days.weekStart(today);
     return workouts.where((w) => w.day >= from && w.day <= today).length;
