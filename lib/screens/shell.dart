@@ -28,7 +28,7 @@ class _ShellState extends State<Shell> {
     (Icons.person_rounded, 'You'),
   ];
 
-  final _visited = <int>{0};
+  late final _visited = <int>{0, Shell.tab.value};
 
   @override
   void initState() {
