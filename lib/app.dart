@@ -16,6 +16,7 @@ import 'screens/shell.dart';
 import 'screens/splash.dart';
 import 'screens/workout_sheet.dart';
 import 'state/tracker.dart';
+import 'widgets/ui.dart';
 
 class PulseApp extends StatefulWidget {
   const PulseApp({super.key, required this.tracker, this.phone, this.showSplash = true, this.link = const DemoLink()});
@@ -46,6 +47,8 @@ class _PulseAppState extends State<PulseApp> with WidgetsBindingObserver {
     _t.addListener(_onChange);
     _syncPhone();
     _ticks = WidgetSync.ticks().listen(_tickFromWidget);
+    // No splash, no curtain: let screens play their entrance right away.
+    if (!_splash) introDone.value = true;
     _boot();
     _follow(widget.link);
   }
