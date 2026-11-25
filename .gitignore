@@ -50,6 +50,4 @@ app.*.map.json
 # Local only
 android/key.properties
 *.jks
-CLAUDE.md
-.claude/
 android/.kotlin/
