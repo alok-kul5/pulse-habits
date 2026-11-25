@@ -13,7 +13,10 @@ void celebrate(BuildContext context, {required Offset origin, String title = 'Pe
   if (overlay == null) return;
   late OverlayEntry entry;
   entry = OverlayEntry(
-    builder: (_) => _Celebration(origin: origin, title: title, subtitle: subtitle, onDone: () => entry.remove()),
+    builder: (_) => Material(
+      type: MaterialType.transparency,
+      child: _Celebration(origin: origin, title: title, subtitle: subtitle, onDone: () => entry.remove()),
+    ),
   );
   overlay.insert(entry);
   HapticFeedback.heavyImpact();
