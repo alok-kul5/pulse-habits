@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="night">#0D0A14</color>
+    <color name="ink">#F7F3FB</color>
+    <color name="ink2">#BEB5CC</color>
+    <color name="ink3">#7D748C</color>
+    <color name="ember">#FF5A36</color>
+    <color name="gold">#FFB443</color>
+</resources>

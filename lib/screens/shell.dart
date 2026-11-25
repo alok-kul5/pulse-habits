@@ -59,8 +59,10 @@ class _ShellState extends State<Shell> {
               if (_visited.contains(k))
                 IgnorePointer(
                   ignoring: k != i,
-                  child: TickerMode(
-                    enabled: k == i,
+                  child: ExcludeSemantics(
+                    excluding: k != i,
+                    // The fade sits above TickerMode so it can still finish
+                    // after the page underneath is muted.
                     child: AnimatedOpacity(
                       opacity: k == i ? 1 : 0,
                       duration: Motion.of(context, Motion.base),
@@ -69,7 +71,7 @@ class _ShellState extends State<Shell> {
                         offset: k == i ? Offset.zero : const Offset(0, .015),
                         duration: Motion.of(context, Motion.base),
                         curve: Motion.out,
-                        child: pages[k],
+                        child: TickerMode(enabled: k == i, child: pages[k]),
                       ),
                     ),
                   ),
