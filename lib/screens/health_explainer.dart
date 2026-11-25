@@ -188,7 +188,7 @@ class _HealthExplainerState extends State<HealthExplainer> {
                             const SizedBox(width: 12),
                             Expanded(
                               child: Text(
-                                'Health Connect is part of Android, so this works in the APK, not in the browser. The web demo charts sample steps.',
+                                'Health Connect is part of Android, so this works in the Android app, not in the browser. The web demo charts sample steps.',
                                 style: Txt.text(13.5, color: Palette.ink2, height: 1.4),
                               ),
                             ),

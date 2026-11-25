@@ -91,7 +91,7 @@ class YouScreen extends StatelessWidget {
                   ],
                 )
               : Text(
-                  'A native Android widget (Kotlin, through home_widget): today\'s habits, the streak and seven weeks of heat, ticked from the home screen. It needs the APK; this is what it shows.',
+                  'A native Android widget (Kotlin, through home_widget): today\'s habits, the streak and seven weeks of heat, ticked from the home screen. It lives on Android; this is what it shows.',
                   style: Txt.text(13, color: Palette.ink2, height: 1.4),
                 ),
         ),
