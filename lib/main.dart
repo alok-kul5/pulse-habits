@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_ui/material_ui.dart';
@@ -5,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app.dart';
 import 'brand/tokens.dart';
+import 'platform/demo_link.dart';
 import 'state/tracker.dart';
 
 Future<void> main() async {
@@ -27,5 +29,10 @@ Future<void> main() async {
   } catch (_) {
     // Storage unavailable (private mode and the like): run without saving.
   }
-  runApp(PulseApp(tracker: Tracker(prefs: prefs)));
+  runApp(
+    PulseApp(
+      tracker: Tracker(prefs: prefs),
+      link: kIsWeb ? DemoLink.parse(Uri.base) : const DemoLink(),
+    ),
+  );
 }

@@ -4,28 +4,33 @@ import 'dart:ui' show PointerDeviceKind;
 import 'package:material_ui/material_ui.dart';
 
 import 'brand/tokens.dart';
+import 'platform/demo_link.dart';
 import 'platform/health.dart';
 import 'platform/phone.dart';
 import 'platform/widget_sync.dart';
+import 'screens/habit_detail.dart';
+import 'screens/habit_sheet.dart';
 import 'screens/health_explainer.dart';
 import 'screens/routes.dart';
 import 'screens/shell.dart';
 import 'screens/splash.dart';
+import 'screens/workout_sheet.dart';
 import 'state/tracker.dart';
 
 class PulseApp extends StatefulWidget {
-  const PulseApp({super.key, required this.tracker, this.phone, this.showSplash = true});
+  const PulseApp({super.key, required this.tracker, this.phone, this.showSplash = true, this.link = const DemoLink()});
 
   final Tracker tracker;
   final Phone? phone;
   final bool showSplash;
+  final DemoLink link;
 
   @override
   State<PulseApp> createState() => _PulseAppState();
 }
 
 class _PulseAppState extends State<PulseApp> with WidgetsBindingObserver {
-  late bool _splash = widget.showSplash;
+  late bool _splash = widget.showSplash && widget.link.splash;
   late final Phone _phone = widget.phone ?? Phone();
   final _nav = GlobalKey<NavigatorState>();
   Timer? _debounce;
@@ -42,6 +47,23 @@ class _PulseAppState extends State<PulseApp> with WidgetsBindingObserver {
     _syncPhone();
     _ticks = WidgetSync.ticks().listen(_tickFromWidget);
     _boot();
+    _follow(widget.link);
+  }
+
+  void _follow(DemoLink link) {
+    if (link.tab != 0) Shell.tab.value = link.tab;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final nav = _nav.currentState;
+      final ctx = _nav.currentContext;
+      if (nav == null || ctx == null) return;
+      if (link.habit != null && _t.habit(link.habit!) != null) {
+        nav.push(heroRoute(HabitDetail(habitId: link.habit!)));
+      } else if (link.sheet == 'new') {
+        showPulseSheet(ctx, (_) => const HabitSheet());
+      } else if (link.sheet == 'log') {
+        showPulseSheet(ctx, (_) => const WorkoutSheet());
+      }
+    });
   }
 
   Future<void> _boot() async {

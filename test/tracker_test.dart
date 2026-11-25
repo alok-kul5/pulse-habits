@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pulse/data/days.dart';
 import 'package:pulse/data/models.dart';
+import 'package:pulse/platform/demo_link.dart';
 import 'package:pulse/state/tracker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -117,5 +118,15 @@ void main() {
     expect(t.stepsToday, 4321);
     t.startFresh();
     expect(t.stepsToday, 4321, reason: 'starting fresh keeps real steps');
+  });
+
+  test('demo links pick a tab, a habit or a sheet', () {
+    final l = DemoLink.parse(Uri.parse('https://x.dev/pulse-habits/?tab=stats&splash=0'));
+    expect(l.tab, 1);
+    expect(l.splash, isFalse);
+    expect(DemoLink.parse(Uri.parse('https://x.dev/?habit=read')).habit, 'read');
+    expect(DemoLink.parse(Uri.parse('https://x.dev/?sheet=log')).sheet, 'log');
+    expect(DemoLink.parse(Uri.parse('https://x.dev/?sheet=nope&tab=zzz')).sheet, isNull);
+    expect(DemoLink.parse(Uri.parse('https://x.dev/')).tab, 0);
   });
 }
